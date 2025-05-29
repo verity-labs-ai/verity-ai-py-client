@@ -64,7 +64,7 @@ import verity_ai_pyc
 
 ### Authentication
 
-First, obtain your API key from [Verity Labs](https://veritylabs.ai) and set it as an environment variable:
+First, obtain your API key from [Verity Labs](https://veritylabs.ai/auth) go to settings, create API Key and set it as an environment variable:
 
 ```bash
 export VERITY_API_KEY="your-api-key-here"
