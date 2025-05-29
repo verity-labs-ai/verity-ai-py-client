@@ -18,29 +18,44 @@ import re  # noqa: F401
 import json
 
 from datetime import datetime
-from pydantic import BaseModel, ConfigDict, StrictBool, StrictFloat, StrictInt, StrictStr
+from pydantic import (
+    BaseModel,
+    ConfigDict,
+    StrictBool,
+    StrictFloat,
+    StrictInt,
+    StrictStr,
+)
 from typing import Any, ClassVar, Dict, List, Optional, Union
 from typing import Optional, Set
 from typing_extensions import Self
 
+
 class FileInfo(BaseModel):
     """
     FileInfo
-    """ # noqa: E501
+    """  # noqa: E501
+
     filename: StrictStr
     size_bytes: StrictInt
     size_mb: Union[StrictFloat, StrictInt]
     file_type: StrictStr
     uploaded_at: datetime
     is_directory: Optional[StrictBool] = False
-    __properties: ClassVar[List[str]] = ["filename", "size_bytes", "size_mb", "file_type", "uploaded_at", "is_directory"]
+    __properties: ClassVar[List[str]] = [
+        "filename",
+        "size_bytes",
+        "size_mb",
+        "file_type",
+        "uploaded_at",
+        "is_directory",
+    ]
 
     model_config = ConfigDict(
         populate_by_name=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
-
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
@@ -66,8 +81,7 @@ class FileInfo(BaseModel):
           were set at model initialization. Other fields with value `None`
           are ignored.
         """
-        excluded_fields: Set[str] = set([
-        ])
+        excluded_fields: Set[str] = set([])
 
         _dict = self.model_dump(
             by_alias=True,
@@ -85,14 +99,16 @@ class FileInfo(BaseModel):
         if not isinstance(obj, dict):
             return cls.model_validate(obj)
 
-        _obj = cls.model_validate({
-            "filename": obj.get("filename"),
-            "size_bytes": obj.get("size_bytes"),
-            "size_mb": obj.get("size_mb"),
-            "file_type": obj.get("file_type"),
-            "uploaded_at": obj.get("uploaded_at"),
-            "is_directory": obj.get("is_directory") if obj.get("is_directory") is not None else False
-        })
+        _obj = cls.model_validate(
+            {
+                "filename": obj.get("filename"),
+                "size_bytes": obj.get("size_bytes"),
+                "size_mb": obj.get("size_mb"),
+                "file_type": obj.get("file_type"),
+                "uploaded_at": obj.get("uploaded_at"),
+                "is_directory": obj.get("is_directory")
+                if obj.get("is_directory") is not None
+                else False,
+            }
+        )
         return _obj
-
-

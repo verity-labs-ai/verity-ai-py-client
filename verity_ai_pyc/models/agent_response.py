@@ -23,10 +23,12 @@ from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
 
+
 class AgentResponse(BaseModel):
     """
     Model for agent API responses
-    """ # noqa: E501
+    """  # noqa: E501
+
     agent_id: StrictStr
     name: StrictStr
     description: Optional[StrictStr]
@@ -42,14 +44,29 @@ class AgentResponse(BaseModel):
     organisation: StrictStr
     created_at: datetime
     updated_at: datetime
-    __properties: ClassVar[List[str]] = ["agent_id", "name", "description", "model", "custom_prompt", "allowed_tools", "use_mcp", "mcp_server_urls", "agent_strategy", "stream", "active", "version", "organisation", "created_at", "updated_at"]
+    __properties: ClassVar[List[str]] = [
+        "agent_id",
+        "name",
+        "description",
+        "model",
+        "custom_prompt",
+        "allowed_tools",
+        "use_mcp",
+        "mcp_server_urls",
+        "agent_strategy",
+        "stream",
+        "active",
+        "version",
+        "organisation",
+        "created_at",
+        "updated_at",
+    ]
 
     model_config = ConfigDict(
         populate_by_name=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
-
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
@@ -75,8 +92,7 @@ class AgentResponse(BaseModel):
           were set at model initialization. Other fields with value `None`
           are ignored.
         """
-        excluded_fields: Set[str] = set([
-        ])
+        excluded_fields: Set[str] = set([])
 
         _dict = self.model_dump(
             by_alias=True,
@@ -86,17 +102,17 @@ class AgentResponse(BaseModel):
         # set to None if description (nullable) is None
         # and model_fields_set contains the field
         if self.description is None and "description" in self.model_fields_set:
-            _dict['description'] = None
+            _dict["description"] = None
 
         # set to None if custom_prompt (nullable) is None
         # and model_fields_set contains the field
         if self.custom_prompt is None and "custom_prompt" in self.model_fields_set:
-            _dict['custom_prompt'] = None
+            _dict["custom_prompt"] = None
 
         # set to None if version (nullable) is None
         # and model_fields_set contains the field
         if self.version is None and "version" in self.model_fields_set:
-            _dict['version'] = None
+            _dict["version"] = None
 
         return _dict
 
@@ -109,23 +125,23 @@ class AgentResponse(BaseModel):
         if not isinstance(obj, dict):
             return cls.model_validate(obj)
 
-        _obj = cls.model_validate({
-            "agent_id": obj.get("agent_id"),
-            "name": obj.get("name"),
-            "description": obj.get("description"),
-            "model": obj.get("model"),
-            "custom_prompt": obj.get("custom_prompt"),
-            "allowed_tools": obj.get("allowed_tools"),
-            "use_mcp": obj.get("use_mcp"),
-            "mcp_server_urls": obj.get("mcp_server_urls"),
-            "agent_strategy": obj.get("agent_strategy"),
-            "stream": obj.get("stream"),
-            "active": obj.get("active"),
-            "version": obj.get("version"),
-            "organisation": obj.get("organisation"),
-            "created_at": obj.get("created_at"),
-            "updated_at": obj.get("updated_at")
-        })
+        _obj = cls.model_validate(
+            {
+                "agent_id": obj.get("agent_id"),
+                "name": obj.get("name"),
+                "description": obj.get("description"),
+                "model": obj.get("model"),
+                "custom_prompt": obj.get("custom_prompt"),
+                "allowed_tools": obj.get("allowed_tools"),
+                "use_mcp": obj.get("use_mcp"),
+                "mcp_server_urls": obj.get("mcp_server_urls"),
+                "agent_strategy": obj.get("agent_strategy"),
+                "stream": obj.get("stream"),
+                "active": obj.get("active"),
+                "version": obj.get("version"),
+                "organisation": obj.get("organisation"),
+                "created_at": obj.get("created_at"),
+                "updated_at": obj.get("updated_at"),
+            }
+        )
         return _obj
-
-

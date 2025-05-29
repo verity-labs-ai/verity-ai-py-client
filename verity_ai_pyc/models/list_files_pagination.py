@@ -23,22 +23,28 @@ from verity_ai_pyc.models.next_token import NextToken
 from typing import Optional, Set
 from typing_extensions import Self
 
+
 class ListFilesPagination(BaseModel):
     """
     ListFilesPagination
-    """ # noqa: E501
+    """  # noqa: E501
+
     current_page: StrictInt
     total_pages: StrictInt
     is_truncated: StrictBool
     next_token: Optional[NextToken] = None
-    __properties: ClassVar[List[str]] = ["current_page", "total_pages", "is_truncated", "next_token"]
+    __properties: ClassVar[List[str]] = [
+        "current_page",
+        "total_pages",
+        "is_truncated",
+        "next_token",
+    ]
 
     model_config = ConfigDict(
         populate_by_name=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
-
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
@@ -64,8 +70,7 @@ class ListFilesPagination(BaseModel):
           were set at model initialization. Other fields with value `None`
           are ignored.
         """
-        excluded_fields: Set[str] = set([
-        ])
+        excluded_fields: Set[str] = set([])
 
         _dict = self.model_dump(
             by_alias=True,
@@ -74,11 +79,11 @@ class ListFilesPagination(BaseModel):
         )
         # override the default output from pydantic by calling `to_dict()` of next_token
         if self.next_token:
-            _dict['next_token'] = self.next_token.to_dict()
+            _dict["next_token"] = self.next_token.to_dict()
         # set to None if next_token (nullable) is None
         # and model_fields_set contains the field
         if self.next_token is None and "next_token" in self.model_fields_set:
-            _dict['next_token'] = None
+            _dict["next_token"] = None
 
         return _dict
 
@@ -91,12 +96,14 @@ class ListFilesPagination(BaseModel):
         if not isinstance(obj, dict):
             return cls.model_validate(obj)
 
-        _obj = cls.model_validate({
-            "current_page": obj.get("current_page"),
-            "total_pages": obj.get("total_pages"),
-            "is_truncated": obj.get("is_truncated"),
-            "next_token": NextToken.from_dict(obj["next_token"]) if obj.get("next_token") is not None else None
-        })
+        _obj = cls.model_validate(
+            {
+                "current_page": obj.get("current_page"),
+                "total_pages": obj.get("total_pages"),
+                "is_truncated": obj.get("is_truncated"),
+                "next_token": NextToken.from_dict(obj["next_token"])
+                if obj.get("next_token") is not None
+                else None,
+            }
+        )
         return _obj
-
-

@@ -23,10 +23,12 @@ from typing_extensions import Annotated
 from typing import Optional, Set
 from typing_extensions import Self
 
+
 class RetrievalRequestPublic(BaseModel):
     """
     RetrievalRequestPublic
-    """ # noqa: E501
+    """  # noqa: E501
+
     query: StrictStr = Field(description="The user query to retrieve documents for.")
     top_k: Optional[Annotated[int, Field(le=10, strict=True, ge=5)]] = None
     knowledge_base: Optional[StrictStr] = None
@@ -37,7 +39,6 @@ class RetrievalRequestPublic(BaseModel):
         validate_assignment=True,
         protected_namespaces=(),
     )
-
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
@@ -63,8 +64,7 @@ class RetrievalRequestPublic(BaseModel):
           were set at model initialization. Other fields with value `None`
           are ignored.
         """
-        excluded_fields: Set[str] = set([
-        ])
+        excluded_fields: Set[str] = set([])
 
         _dict = self.model_dump(
             by_alias=True,
@@ -74,12 +74,12 @@ class RetrievalRequestPublic(BaseModel):
         # set to None if top_k (nullable) is None
         # and model_fields_set contains the field
         if self.top_k is None and "top_k" in self.model_fields_set:
-            _dict['top_k'] = None
+            _dict["top_k"] = None
 
         # set to None if knowledge_base (nullable) is None
         # and model_fields_set contains the field
         if self.knowledge_base is None and "knowledge_base" in self.model_fields_set:
-            _dict['knowledge_base'] = None
+            _dict["knowledge_base"] = None
 
         return _dict
 
@@ -92,11 +92,11 @@ class RetrievalRequestPublic(BaseModel):
         if not isinstance(obj, dict):
             return cls.model_validate(obj)
 
-        _obj = cls.model_validate({
-            "query": obj.get("query"),
-            "top_k": obj.get("top_k"),
-            "knowledge_base": obj.get("knowledge_base")
-        })
+        _obj = cls.model_validate(
+            {
+                "query": obj.get("query"),
+                "top_k": obj.get("top_k"),
+                "knowledge_base": obj.get("knowledge_base"),
+            }
+        )
         return _obj
-
-

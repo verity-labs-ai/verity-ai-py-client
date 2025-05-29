@@ -23,11 +23,15 @@ from verity_ai_pyc.models.message import Message
 from typing import Optional, Set
 from typing_extensions import Self
 
+
 class ChatCompletionRequestPublic(BaseModel):
     """
     ChatCompletionRequestPublic
-    """ # noqa: E501
-    data_type: Optional[StrictStr] = Field(default=None, description="Unstructured or structured data type")
+    """  # noqa: E501
+
+    data_type: Optional[StrictStr] = Field(
+        default=None, description="Unstructured or structured data type"
+    )
     agent_flag: Optional[StrictBool] = None
     agent_name: Optional[StrictStr] = None
     agent_strategy: Optional[StrictStr] = None
@@ -39,14 +43,26 @@ class ChatCompletionRequestPublic(BaseModel):
     table_name: Optional[StrictStr] = None
     stream: Optional[StrictBool] = None
     max_trials: Optional[StrictInt] = None
-    __properties: ClassVar[List[str]] = ["data_type", "agent_flag", "agent_name", "agent_strategy", "agent_history_enabled", "model", "knowledge_base", "messages", "database_name", "table_name", "stream", "max_trials"]
+    __properties: ClassVar[List[str]] = [
+        "data_type",
+        "agent_flag",
+        "agent_name",
+        "agent_strategy",
+        "agent_history_enabled",
+        "model",
+        "knowledge_base",
+        "messages",
+        "database_name",
+        "table_name",
+        "stream",
+        "max_trials",
+    ]
 
     model_config = ConfigDict(
         populate_by_name=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
-
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
@@ -72,8 +88,7 @@ class ChatCompletionRequestPublic(BaseModel):
           were set at model initialization. Other fields with value `None`
           are ignored.
         """
-        excluded_fields: Set[str] = set([
-        ])
+        excluded_fields: Set[str] = set([])
 
         _dict = self.model_dump(
             by_alias=True,
@@ -86,51 +101,54 @@ class ChatCompletionRequestPublic(BaseModel):
             for _item_messages in self.messages:
                 if _item_messages:
                     _items.append(_item_messages.to_dict())
-            _dict['messages'] = _items
+            _dict["messages"] = _items
         # set to None if agent_flag (nullable) is None
         # and model_fields_set contains the field
         if self.agent_flag is None and "agent_flag" in self.model_fields_set:
-            _dict['agent_flag'] = None
+            _dict["agent_flag"] = None
 
         # set to None if agent_name (nullable) is None
         # and model_fields_set contains the field
         if self.agent_name is None and "agent_name" in self.model_fields_set:
-            _dict['agent_name'] = None
+            _dict["agent_name"] = None
 
         # set to None if agent_strategy (nullable) is None
         # and model_fields_set contains the field
         if self.agent_strategy is None and "agent_strategy" in self.model_fields_set:
-            _dict['agent_strategy'] = None
+            _dict["agent_strategy"] = None
 
         # set to None if agent_history_enabled (nullable) is None
         # and model_fields_set contains the field
-        if self.agent_history_enabled is None and "agent_history_enabled" in self.model_fields_set:
-            _dict['agent_history_enabled'] = None
+        if (
+            self.agent_history_enabled is None
+            and "agent_history_enabled" in self.model_fields_set
+        ):
+            _dict["agent_history_enabled"] = None
 
         # set to None if knowledge_base (nullable) is None
         # and model_fields_set contains the field
         if self.knowledge_base is None and "knowledge_base" in self.model_fields_set:
-            _dict['knowledge_base'] = None
+            _dict["knowledge_base"] = None
 
         # set to None if database_name (nullable) is None
         # and model_fields_set contains the field
         if self.database_name is None and "database_name" in self.model_fields_set:
-            _dict['database_name'] = None
+            _dict["database_name"] = None
 
         # set to None if table_name (nullable) is None
         # and model_fields_set contains the field
         if self.table_name is None and "table_name" in self.model_fields_set:
-            _dict['table_name'] = None
+            _dict["table_name"] = None
 
         # set to None if stream (nullable) is None
         # and model_fields_set contains the field
         if self.stream is None and "stream" in self.model_fields_set:
-            _dict['stream'] = None
+            _dict["stream"] = None
 
         # set to None if max_trials (nullable) is None
         # and model_fields_set contains the field
         if self.max_trials is None and "max_trials" in self.model_fields_set:
-            _dict['max_trials'] = None
+            _dict["max_trials"] = None
 
         return _dict
 
@@ -143,20 +161,22 @@ class ChatCompletionRequestPublic(BaseModel):
         if not isinstance(obj, dict):
             return cls.model_validate(obj)
 
-        _obj = cls.model_validate({
-            "data_type": obj.get("data_type"),
-            "agent_flag": obj.get("agent_flag"),
-            "agent_name": obj.get("agent_name"),
-            "agent_strategy": obj.get("agent_strategy"),
-            "agent_history_enabled": obj.get("agent_history_enabled"),
-            "model": obj.get("model"),
-            "knowledge_base": obj.get("knowledge_base"),
-            "messages": [Message.from_dict(_item) for _item in obj["messages"]] if obj.get("messages") is not None else None,
-            "database_name": obj.get("database_name"),
-            "table_name": obj.get("table_name"),
-            "stream": obj.get("stream"),
-            "max_trials": obj.get("max_trials")
-        })
+        _obj = cls.model_validate(
+            {
+                "data_type": obj.get("data_type"),
+                "agent_flag": obj.get("agent_flag"),
+                "agent_name": obj.get("agent_name"),
+                "agent_strategy": obj.get("agent_strategy"),
+                "agent_history_enabled": obj.get("agent_history_enabled"),
+                "model": obj.get("model"),
+                "knowledge_base": obj.get("knowledge_base"),
+                "messages": [Message.from_dict(_item) for _item in obj["messages"]]
+                if obj.get("messages") is not None
+                else None,
+                "database_name": obj.get("database_name"),
+                "table_name": obj.get("table_name"),
+                "stream": obj.get("stream"),
+                "max_trials": obj.get("max_trials"),
+            }
+        )
         return _obj
-
-

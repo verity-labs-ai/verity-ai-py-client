@@ -22,11 +22,15 @@ from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
 
+
 class ChatCompletionMessage(BaseModel):
     """
     ChatCompletionMessage
-    """ # noqa: E501
-    role: StrictStr = Field(description="Role of the message (always 'assistant' in response)")
+    """  # noqa: E501
+
+    role: StrictStr = Field(
+        description="Role of the message (always 'assistant' in response)"
+    )
     content: StrictStr = Field(description="Generated message content")
     metadata: Optional[Dict[str, Any]] = None
     __properties: ClassVar[List[str]] = ["role", "content", "metadata"]
@@ -36,7 +40,6 @@ class ChatCompletionMessage(BaseModel):
         validate_assignment=True,
         protected_namespaces=(),
     )
-
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
@@ -62,8 +65,7 @@ class ChatCompletionMessage(BaseModel):
           were set at model initialization. Other fields with value `None`
           are ignored.
         """
-        excluded_fields: Set[str] = set([
-        ])
+        excluded_fields: Set[str] = set([])
 
         _dict = self.model_dump(
             by_alias=True,
@@ -73,7 +75,7 @@ class ChatCompletionMessage(BaseModel):
         # set to None if metadata (nullable) is None
         # and model_fields_set contains the field
         if self.metadata is None and "metadata" in self.model_fields_set:
-            _dict['metadata'] = None
+            _dict["metadata"] = None
 
         return _dict
 
@@ -86,11 +88,11 @@ class ChatCompletionMessage(BaseModel):
         if not isinstance(obj, dict):
             return cls.model_validate(obj)
 
-        _obj = cls.model_validate({
-            "role": obj.get("role"),
-            "content": obj.get("content"),
-            "metadata": obj.get("metadata")
-        })
+        _obj = cls.model_validate(
+            {
+                "role": obj.get("role"),
+                "content": obj.get("content"),
+                "metadata": obj.get("metadata"),
+            }
+        )
         return _obj
-
-

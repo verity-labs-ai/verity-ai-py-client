@@ -40,7 +40,6 @@ class FileManagementApi:
             api_client = ApiClient.get_default()
         self.api_client = api_client
 
-
     @validate_call
     def delete_files_fileman_data_delete_delete(
         self,
@@ -52,9 +51,8 @@ class FileManagementApi:
             None,
             Annotated[StrictFloat, Field(gt=0)],
             Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
+                Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]
+            ],
         ] = None,
         _request_auth: Optional[Dict[StrictStr, Any]] = None,
         _content_type: Optional[StrictStr] = None,
@@ -93,7 +91,7 @@ class FileManagementApi:
                             in the spec for a single request.
         :type _host_index: int, optional
         :return: Returns the result object.
-        """ # noqa: E501
+        """  # noqa: E501
 
         _param = self._delete_files_fileman_data_delete_delete_serialize(
             storage_type=storage_type,
@@ -103,27 +101,25 @@ class FileManagementApi:
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
-            _host_index=_host_index
+            _host_index=_host_index,
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "DeleteResponse",
-            '401': "ErrorResponse",
-            '400': "ErrorResponse",
-            '404': "ErrorResponse",
-            '500': "ErrorResponse",
-            '422': "HTTPValidationError",
+            "200": "DeleteResponse",
+            "401": "ErrorResponse",
+            "400": "ErrorResponse",
+            "404": "ErrorResponse",
+            "500": "ErrorResponse",
+            "422": "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
+            *_param, _request_timeout=_request_timeout
         )
         response_data.read()
         return self.api_client.response_deserialize(
             response_data=response_data,
             response_types_map=_response_types_map,
         ).data
-
 
     @validate_call
     def delete_files_fileman_data_delete_delete_with_http_info(
@@ -136,9 +132,8 @@ class FileManagementApi:
             None,
             Annotated[StrictFloat, Field(gt=0)],
             Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
+                Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]
+            ],
         ] = None,
         _request_auth: Optional[Dict[StrictStr, Any]] = None,
         _content_type: Optional[StrictStr] = None,
@@ -177,7 +172,7 @@ class FileManagementApi:
                             in the spec for a single request.
         :type _host_index: int, optional
         :return: Returns the result object.
-        """ # noqa: E501
+        """  # noqa: E501
 
         _param = self._delete_files_fileman_data_delete_delete_serialize(
             storage_type=storage_type,
@@ -187,27 +182,25 @@ class FileManagementApi:
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
-            _host_index=_host_index
+            _host_index=_host_index,
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "DeleteResponse",
-            '401': "ErrorResponse",
-            '400': "ErrorResponse",
-            '404': "ErrorResponse",
-            '500': "ErrorResponse",
-            '422': "HTTPValidationError",
+            "200": "DeleteResponse",
+            "401": "ErrorResponse",
+            "400": "ErrorResponse",
+            "404": "ErrorResponse",
+            "500": "ErrorResponse",
+            "422": "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
+            *_param, _request_timeout=_request_timeout
         )
         response_data.read()
         return self.api_client.response_deserialize(
             response_data=response_data,
             response_types_map=_response_types_map,
         )
-
 
     @validate_call
     def delete_files_fileman_data_delete_delete_without_preload_content(
@@ -220,9 +213,8 @@ class FileManagementApi:
             None,
             Annotated[StrictFloat, Field(gt=0)],
             Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
+                Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]
+            ],
         ] = None,
         _request_auth: Optional[Dict[StrictStr, Any]] = None,
         _content_type: Optional[StrictStr] = None,
@@ -261,7 +253,7 @@ class FileManagementApi:
                             in the spec for a single request.
         :type _host_index: int, optional
         :return: Returns the result object.
-        """ # noqa: E501
+        """  # noqa: E501
 
         _param = self._delete_files_fileman_data_delete_delete_serialize(
             storage_type=storage_type,
@@ -271,23 +263,21 @@ class FileManagementApi:
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
-            _host_index=_host_index
+            _host_index=_host_index,
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "DeleteResponse",
-            '401': "ErrorResponse",
-            '400': "ErrorResponse",
-            '404': "ErrorResponse",
-            '500': "ErrorResponse",
-            '422': "HTTPValidationError",
+            "200": "DeleteResponse",
+            "401": "ErrorResponse",
+            "400": "ErrorResponse",
+            "404": "ErrorResponse",
+            "500": "ErrorResponse",
+            "422": "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
+            *_param, _request_timeout=_request_timeout
         )
         return response_data.response
-
 
     def _delete_files_fileman_data_delete_delete_serialize(
         self,
@@ -303,8 +293,7 @@ class FileManagementApi:
 
         _host = None
 
-        _collection_formats: Dict[str, str] = {
-        }
+        _collection_formats: Dict[str, str] = {}
 
         _path_params: Dict[str, str] = {}
         _query_params: List[Tuple[str, str]] = []
@@ -318,54 +307,45 @@ class FileManagementApi:
         # process the path parameters
         # process the query parameters
         if storage_type is not None:
-            
-            _query_params.append(('storage_type', storage_type))
-            
+
+            _query_params.append(("storage_type", storage_type))
+
         if base_path is not None:
-            
-            _query_params.append(('base_path', base_path))
-            
+
+            _query_params.append(("base_path", base_path))
+
         if sub_path is not None:
-            
-            _query_params.append(('sub_path', sub_path))
-            
+
+            _query_params.append(("sub_path", sub_path))
+
         # process the header parameters
         # process the form parameters
         # process the body parameter
         if delete_request is not None:
             _body_params = delete_request
 
-
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
-                [
-                    'application/json'
-                ]
+        if "Accept" not in _header_params:
+            _header_params["Accept"] = self.api_client.select_header_accept(
+                ["application/json"]
             )
 
         # set the HTTP header `Content-Type`
         if _content_type:
-            _header_params['Content-Type'] = _content_type
+            _header_params["Content-Type"] = _content_type
         else:
-            _default_content_type = (
-                self.api_client.select_header_content_type(
-                    [
-                        'application/json'
-                    ]
-                )
+            _default_content_type = self.api_client.select_header_content_type(
+                ["application/json"]
             )
             if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
+                _header_params["Content-Type"] = _default_content_type
 
         # authentication setting
-        _auth_settings: List[str] = [
-            'XAPIKeyAuth'
-        ]
+        _auth_settings: List[str] = ["XAPIKeyAuth"]
 
         return self.api_client.param_serialize(
-            method='DELETE',
-            resource_path='/services/fileman/data/delete',
+            method="DELETE",
+            resource_path="/services/fileman/data/delete",
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -375,11 +355,8 @@ class FileManagementApi:
             auth_settings=_auth_settings,
             collection_formats=_collection_formats,
             _host=_host,
-            _request_auth=_request_auth
+            _request_auth=_request_auth,
         )
-
-
-
 
     @validate_call
     def list_files_get_fileman_data_list_get(
@@ -395,9 +372,8 @@ class FileManagementApi:
             None,
             Annotated[StrictFloat, Field(gt=0)],
             Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
+                Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]
+            ],
         ] = None,
         _request_auth: Optional[Dict[StrictStr, Any]] = None,
         _content_type: Optional[StrictStr] = None,
@@ -442,7 +418,7 @@ class FileManagementApi:
                             in the spec for a single request.
         :type _host_index: int, optional
         :return: Returns the result object.
-        """ # noqa: E501
+        """  # noqa: E501
 
         _param = self._list_files_get_fileman_data_list_get_serialize(
             storage_type=storage_type,
@@ -455,23 +431,21 @@ class FileManagementApi:
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
-            _host_index=_host_index
+            _host_index=_host_index,
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ListFilesResponse",
-            '422': "HTTPValidationError",
+            "200": "ListFilesResponse",
+            "422": "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
+            *_param, _request_timeout=_request_timeout
         )
         response_data.read()
         return self.api_client.response_deserialize(
             response_data=response_data,
             response_types_map=_response_types_map,
         ).data
-
 
     @validate_call
     def list_files_get_fileman_data_list_get_with_http_info(
@@ -487,9 +461,8 @@ class FileManagementApi:
             None,
             Annotated[StrictFloat, Field(gt=0)],
             Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
+                Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]
+            ],
         ] = None,
         _request_auth: Optional[Dict[StrictStr, Any]] = None,
         _content_type: Optional[StrictStr] = None,
@@ -534,7 +507,7 @@ class FileManagementApi:
                             in the spec for a single request.
         :type _host_index: int, optional
         :return: Returns the result object.
-        """ # noqa: E501
+        """  # noqa: E501
 
         _param = self._list_files_get_fileman_data_list_get_serialize(
             storage_type=storage_type,
@@ -547,23 +520,21 @@ class FileManagementApi:
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
-            _host_index=_host_index
+            _host_index=_host_index,
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ListFilesResponse",
-            '422': "HTTPValidationError",
+            "200": "ListFilesResponse",
+            "422": "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
+            *_param, _request_timeout=_request_timeout
         )
         response_data.read()
         return self.api_client.response_deserialize(
             response_data=response_data,
             response_types_map=_response_types_map,
         )
-
 
     @validate_call
     def list_files_get_fileman_data_list_get_without_preload_content(
@@ -579,9 +550,8 @@ class FileManagementApi:
             None,
             Annotated[StrictFloat, Field(gt=0)],
             Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
+                Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]
+            ],
         ] = None,
         _request_auth: Optional[Dict[StrictStr, Any]] = None,
         _content_type: Optional[StrictStr] = None,
@@ -626,7 +596,7 @@ class FileManagementApi:
                             in the spec for a single request.
         :type _host_index: int, optional
         :return: Returns the result object.
-        """ # noqa: E501
+        """  # noqa: E501
 
         _param = self._list_files_get_fileman_data_list_get_serialize(
             storage_type=storage_type,
@@ -639,19 +609,17 @@ class FileManagementApi:
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
-            _host_index=_host_index
+            _host_index=_host_index,
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ListFilesResponse",
-            '422': "HTTPValidationError",
+            "200": "ListFilesResponse",
+            "422": "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
+            *_param, _request_timeout=_request_timeout
         )
         return response_data.response
-
 
     def _list_files_get_fileman_data_list_get_serialize(
         self,
@@ -670,8 +638,7 @@ class FileManagementApi:
 
         _host = None
 
-        _collection_formats: Dict[str, str] = {
-        }
+        _collection_formats: Dict[str, str] = {}
 
         _path_params: Dict[str, str] = {}
         _query_params: List[Tuple[str, str]] = []
@@ -685,55 +652,49 @@ class FileManagementApi:
         # process the path parameters
         # process the query parameters
         if storage_type is not None:
-            
-            _query_params.append(('storage_type', storage_type))
-            
+
+            _query_params.append(("storage_type", storage_type))
+
         if base_path is not None:
-            
-            _query_params.append(('base_path', base_path))
-            
+
+            _query_params.append(("base_path", base_path))
+
         if sub_path is not None:
-            
-            _query_params.append(('sub_path', sub_path))
-            
+
+            _query_params.append(("sub_path", sub_path))
+
         if page is not None:
-            
-            _query_params.append(('page', page))
-            
+
+            _query_params.append(("page", page))
+
         if page_size is not None:
-            
-            _query_params.append(('page_size', page_size))
-            
+
+            _query_params.append(("page_size", page_size))
+
         if continuation_token is not None:
-            
-            _query_params.append(('continuation_token', continuation_token))
-            
+
+            _query_params.append(("continuation_token", continuation_token))
+
         if dir_flag is not None:
-            
-            _query_params.append(('dir_flag', dir_flag))
-            
+
+            _query_params.append(("dir_flag", dir_flag))
+
         # process the header parameters
         # process the form parameters
         # process the body parameter
 
-
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
-                [
-                    'application/json'
-                ]
+        if "Accept" not in _header_params:
+            _header_params["Accept"] = self.api_client.select_header_accept(
+                ["application/json"]
             )
 
-
         # authentication setting
-        _auth_settings: List[str] = [
-            'XAPIKeyAuth'
-        ]
+        _auth_settings: List[str] = ["XAPIKeyAuth"]
 
         return self.api_client.param_serialize(
-            method='GET',
-            resource_path='/services/fileman/data/list',
+            method="GET",
+            resource_path="/services/fileman/data/list",
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -743,11 +704,8 @@ class FileManagementApi:
             auth_settings=_auth_settings,
             collection_formats=_collection_formats,
             _host=_host,
-            _request_auth=_request_auth
+            _request_auth=_request_auth,
         )
-
-
-
 
     @validate_call
     def upload_file_fileman_data_upload_post(
@@ -763,9 +721,8 @@ class FileManagementApi:
             None,
             Annotated[StrictFloat, Field(gt=0)],
             Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
+                Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]
+            ],
         ] = None,
         _request_auth: Optional[Dict[StrictStr, Any]] = None,
         _content_type: Optional[StrictStr] = None,
@@ -810,7 +767,7 @@ class FileManagementApi:
                             in the spec for a single request.
         :type _host_index: int, optional
         :return: Returns the result object.
-        """ # noqa: E501
+        """  # noqa: E501
 
         _param = self._upload_file_fileman_data_upload_post_serialize(
             file=file,
@@ -823,27 +780,25 @@ class FileManagementApi:
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
-            _host_index=_host_index
+            _host_index=_host_index,
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "UploadFileResponse",
-            '401': "ErrorResponse",
-            '400': "ErrorResponse",
-            '404': "ErrorResponse",
-            '500': "ErrorResponse",
-            '422': "HTTPValidationError",
+            "200": "UploadFileResponse",
+            "401": "ErrorResponse",
+            "400": "ErrorResponse",
+            "404": "ErrorResponse",
+            "500": "ErrorResponse",
+            "422": "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
+            *_param, _request_timeout=_request_timeout
         )
         response_data.read()
         return self.api_client.response_deserialize(
             response_data=response_data,
             response_types_map=_response_types_map,
         ).data
-
 
     @validate_call
     def upload_file_fileman_data_upload_post_with_http_info(
@@ -859,9 +814,8 @@ class FileManagementApi:
             None,
             Annotated[StrictFloat, Field(gt=0)],
             Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
+                Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]
+            ],
         ] = None,
         _request_auth: Optional[Dict[StrictStr, Any]] = None,
         _content_type: Optional[StrictStr] = None,
@@ -906,7 +860,7 @@ class FileManagementApi:
                             in the spec for a single request.
         :type _host_index: int, optional
         :return: Returns the result object.
-        """ # noqa: E501
+        """  # noqa: E501
 
         _param = self._upload_file_fileman_data_upload_post_serialize(
             file=file,
@@ -919,27 +873,25 @@ class FileManagementApi:
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
-            _host_index=_host_index
+            _host_index=_host_index,
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "UploadFileResponse",
-            '401': "ErrorResponse",
-            '400': "ErrorResponse",
-            '404': "ErrorResponse",
-            '500': "ErrorResponse",
-            '422': "HTTPValidationError",
+            "200": "UploadFileResponse",
+            "401": "ErrorResponse",
+            "400": "ErrorResponse",
+            "404": "ErrorResponse",
+            "500": "ErrorResponse",
+            "422": "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
+            *_param, _request_timeout=_request_timeout
         )
         response_data.read()
         return self.api_client.response_deserialize(
             response_data=response_data,
             response_types_map=_response_types_map,
         )
-
 
     @validate_call
     def upload_file_fileman_data_upload_post_without_preload_content(
@@ -955,9 +907,8 @@ class FileManagementApi:
             None,
             Annotated[StrictFloat, Field(gt=0)],
             Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
+                Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]
+            ],
         ] = None,
         _request_auth: Optional[Dict[StrictStr, Any]] = None,
         _content_type: Optional[StrictStr] = None,
@@ -1002,7 +953,7 @@ class FileManagementApi:
                             in the spec for a single request.
         :type _host_index: int, optional
         :return: Returns the result object.
-        """ # noqa: E501
+        """  # noqa: E501
 
         _param = self._upload_file_fileman_data_upload_post_serialize(
             file=file,
@@ -1015,23 +966,21 @@ class FileManagementApi:
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
-            _host_index=_host_index
+            _host_index=_host_index,
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "UploadFileResponse",
-            '401': "ErrorResponse",
-            '400': "ErrorResponse",
-            '404': "ErrorResponse",
-            '500': "ErrorResponse",
-            '422': "HTTPValidationError",
+            "200": "UploadFileResponse",
+            "401": "ErrorResponse",
+            "400": "ErrorResponse",
+            "404": "ErrorResponse",
+            "500": "ErrorResponse",
+            "422": "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
+            *_param, _request_timeout=_request_timeout
         )
         return response_data.response
-
 
     def _upload_file_fileman_data_upload_post_serialize(
         self,
@@ -1050,8 +999,7 @@ class FileManagementApi:
 
         _host = None
 
-        _collection_formats: Dict[str, str] = {
-        }
+        _collection_formats: Dict[str, str] = {}
 
         _path_params: Dict[str, str] = {}
         _query_params: List[Tuple[str, str]] = []
@@ -1067,52 +1015,43 @@ class FileManagementApi:
         # process the header parameters
         # process the form parameters
         if file is not None:
-            _files['file'] = file
+            _files["file"] = file
         if storage_type is not None:
-            _form_params.append(('storage_type', storage_type))
+            _form_params.append(("storage_type", storage_type))
         if database_name is not None:
-            _form_params.append(('database_name', database_name))
+            _form_params.append(("database_name", database_name))
         if table_name is not None:
-            _form_params.append(('table_name', table_name))
+            _form_params.append(("table_name", table_name))
         if knowledge_base is not None:
-            _form_params.append(('knowledge_base', knowledge_base))
+            _form_params.append(("knowledge_base", knowledge_base))
         if sub_path is not None:
-            _form_params.append(('sub_path', sub_path))
+            _form_params.append(("sub_path", sub_path))
         if base_path is not None:
-            _form_params.append(('base_path', base_path))
+            _form_params.append(("base_path", base_path))
         # process the body parameter
 
-
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
-                [
-                    'application/json'
-                ]
+        if "Accept" not in _header_params:
+            _header_params["Accept"] = self.api_client.select_header_accept(
+                ["application/json"]
             )
 
         # set the HTTP header `Content-Type`
         if _content_type:
-            _header_params['Content-Type'] = _content_type
+            _header_params["Content-Type"] = _content_type
         else:
-            _default_content_type = (
-                self.api_client.select_header_content_type(
-                    [
-                        'multipart/form-data'
-                    ]
-                )
+            _default_content_type = self.api_client.select_header_content_type(
+                ["multipart/form-data"]
             )
             if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
+                _header_params["Content-Type"] = _default_content_type
 
         # authentication setting
-        _auth_settings: List[str] = [
-            'XAPIKeyAuth'
-        ]
+        _auth_settings: List[str] = ["XAPIKeyAuth"]
 
         return self.api_client.param_serialize(
-            method='POST',
-            resource_path='/services/fileman/data/upload',
+            method="POST",
+            resource_path="/services/fileman/data/upload",
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -1122,7 +1061,5 @@ class FileManagementApi:
             auth_settings=_auth_settings,
             collection_formats=_collection_formats,
             _host=_host,
-            _request_auth=_request_auth
+            _request_auth=_request_auth,
         )
-
-

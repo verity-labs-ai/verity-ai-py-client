@@ -39,7 +39,9 @@ from verity_ai_pyc.models.agent_create_public import AgentCreatePublic
 from verity_ai_pyc.models.agent_response import AgentResponse
 from verity_ai_pyc.models.agent_update_public import AgentUpdatePublic
 from verity_ai_pyc.models.chat_completion_message import ChatCompletionMessage
-from verity_ai_pyc.models.chat_completion_request_public import ChatCompletionRequestPublic
+from verity_ai_pyc.models.chat_completion_request_public import (
+    ChatCompletionRequestPublic,
+)
 from verity_ai_pyc.models.chat_completion_response import ChatCompletionResponse
 from verity_ai_pyc.models.delete_request import DeleteRequest
 from verity_ai_pyc.models.delete_response import DeleteResponse

@@ -24,27 +24,46 @@ from verity_ai_pyc.models.usage import Usage
 from typing import Optional, Set
 from typing_extensions import Self
 
+
 class ChatCompletionResponse(BaseModel):
     """
     ChatCompletionResponse
-    """ # noqa: E501
+    """  # noqa: E501
+
     id: StrictStr = Field(description="Unique identifier for the response")
-    created: StrictInt = Field(description="Timestamp (Unix epoch) when the response was created")
+    created: StrictInt = Field(
+        description="Timestamp (Unix epoch) when the response was created"
+    )
     model: StrictStr = Field(description="The model used to generate the response")
-    messages: List[ChatCompletionMessage] = Field(description="A list of messages containing the model's response")
-    structured_data: List[Dict[str, Any]] = Field(description="Raw structured output from the query")
-    sources: Optional[List[StrictStr]] = Field(default=None, description="List of document sources utilized for the response")
+    messages: List[ChatCompletionMessage] = Field(
+        description="A list of messages containing the model's response"
+    )
+    structured_data: List[Dict[str, Any]] = Field(
+        description="Raw structured output from the query"
+    )
+    sources: Optional[List[StrictStr]] = Field(
+        default=None, description="List of document sources utilized for the response"
+    )
     usage: Usage = Field(description="Usage statistics for the response")
     metadata: Optional[Dict[str, Any]] = None
     llm_sql_generation: Optional[StrictStr] = None
-    __properties: ClassVar[List[str]] = ["id", "created", "model", "messages", "structured_data", "sources", "usage", "metadata", "llm_sql_generation"]
+    __properties: ClassVar[List[str]] = [
+        "id",
+        "created",
+        "model",
+        "messages",
+        "structured_data",
+        "sources",
+        "usage",
+        "metadata",
+        "llm_sql_generation",
+    ]
 
     model_config = ConfigDict(
         populate_by_name=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
-
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
@@ -70,8 +89,7 @@ class ChatCompletionResponse(BaseModel):
           were set at model initialization. Other fields with value `None`
           are ignored.
         """
-        excluded_fields: Set[str] = set([
-        ])
+        excluded_fields: Set[str] = set([])
 
         _dict = self.model_dump(
             by_alias=True,
@@ -84,19 +102,22 @@ class ChatCompletionResponse(BaseModel):
             for _item_messages in self.messages:
                 if _item_messages:
                     _items.append(_item_messages.to_dict())
-            _dict['messages'] = _items
+            _dict["messages"] = _items
         # override the default output from pydantic by calling `to_dict()` of usage
         if self.usage:
-            _dict['usage'] = self.usage.to_dict()
+            _dict["usage"] = self.usage.to_dict()
         # set to None if metadata (nullable) is None
         # and model_fields_set contains the field
         if self.metadata is None and "metadata" in self.model_fields_set:
-            _dict['metadata'] = None
+            _dict["metadata"] = None
 
         # set to None if llm_sql_generation (nullable) is None
         # and model_fields_set contains the field
-        if self.llm_sql_generation is None and "llm_sql_generation" in self.model_fields_set:
-            _dict['llm_sql_generation'] = None
+        if (
+            self.llm_sql_generation is None
+            and "llm_sql_generation" in self.model_fields_set
+        ):
+            _dict["llm_sql_generation"] = None
 
         return _dict
 
@@ -109,17 +130,23 @@ class ChatCompletionResponse(BaseModel):
         if not isinstance(obj, dict):
             return cls.model_validate(obj)
 
-        _obj = cls.model_validate({
-            "id": obj.get("id"),
-            "created": obj.get("created"),
-            "model": obj.get("model"),
-            "messages": [ChatCompletionMessage.from_dict(_item) for _item in obj["messages"]] if obj.get("messages") is not None else None,
-            "structured_data": obj.get("structured_data"),
-            "sources": obj.get("sources"),
-            "usage": Usage.from_dict(obj["usage"]) if obj.get("usage") is not None else None,
-            "metadata": obj.get("metadata"),
-            "llm_sql_generation": obj.get("llm_sql_generation")
-        })
+        _obj = cls.model_validate(
+            {
+                "id": obj.get("id"),
+                "created": obj.get("created"),
+                "model": obj.get("model"),
+                "messages": [
+                    ChatCompletionMessage.from_dict(_item) for _item in obj["messages"]
+                ]
+                if obj.get("messages") is not None
+                else None,
+                "structured_data": obj.get("structured_data"),
+                "sources": obj.get("sources"),
+                "usage": Usage.from_dict(obj["usage"])
+                if obj.get("usage") is not None
+                else None,
+                "metadata": obj.get("metadata"),
+                "llm_sql_generation": obj.get("llm_sql_generation"),
+            }
+        )
         return _obj
-
-

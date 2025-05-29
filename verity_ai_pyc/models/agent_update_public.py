@@ -22,10 +22,12 @@ from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
 
+
 class AgentUpdatePublic(BaseModel):
     """
     Public model for updating an existing agent - all fields optional
-    """ # noqa: E501
+    """  # noqa: E501
+
     name: Optional[StrictStr] = None
     description: Optional[StrictStr] = None
     model: Optional[StrictStr] = None
@@ -36,14 +38,24 @@ class AgentUpdatePublic(BaseModel):
     agent_strategy: Optional[StrictStr] = None
     stream: Optional[StrictBool] = None
     active: Optional[StrictBool] = None
-    __properties: ClassVar[List[str]] = ["name", "description", "model", "custom_prompt", "allowed_tools", "use_mcp", "mcp_server_urls", "agent_strategy", "stream", "active"]
+    __properties: ClassVar[List[str]] = [
+        "name",
+        "description",
+        "model",
+        "custom_prompt",
+        "allowed_tools",
+        "use_mcp",
+        "mcp_server_urls",
+        "agent_strategy",
+        "stream",
+        "active",
+    ]
 
     model_config = ConfigDict(
         populate_by_name=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
-
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
@@ -69,8 +81,7 @@ class AgentUpdatePublic(BaseModel):
           were set at model initialization. Other fields with value `None`
           are ignored.
         """
-        excluded_fields: Set[str] = set([
-        ])
+        excluded_fields: Set[str] = set([])
 
         _dict = self.model_dump(
             by_alias=True,
@@ -80,52 +91,52 @@ class AgentUpdatePublic(BaseModel):
         # set to None if name (nullable) is None
         # and model_fields_set contains the field
         if self.name is None and "name" in self.model_fields_set:
-            _dict['name'] = None
+            _dict["name"] = None
 
         # set to None if description (nullable) is None
         # and model_fields_set contains the field
         if self.description is None and "description" in self.model_fields_set:
-            _dict['description'] = None
+            _dict["description"] = None
 
         # set to None if model (nullable) is None
         # and model_fields_set contains the field
         if self.model is None and "model" in self.model_fields_set:
-            _dict['model'] = None
+            _dict["model"] = None
 
         # set to None if custom_prompt (nullable) is None
         # and model_fields_set contains the field
         if self.custom_prompt is None and "custom_prompt" in self.model_fields_set:
-            _dict['custom_prompt'] = None
+            _dict["custom_prompt"] = None
 
         # set to None if allowed_tools (nullable) is None
         # and model_fields_set contains the field
         if self.allowed_tools is None and "allowed_tools" in self.model_fields_set:
-            _dict['allowed_tools'] = None
+            _dict["allowed_tools"] = None
 
         # set to None if use_mcp (nullable) is None
         # and model_fields_set contains the field
         if self.use_mcp is None and "use_mcp" in self.model_fields_set:
-            _dict['use_mcp'] = None
+            _dict["use_mcp"] = None
 
         # set to None if mcp_server_urls (nullable) is None
         # and model_fields_set contains the field
         if self.mcp_server_urls is None and "mcp_server_urls" in self.model_fields_set:
-            _dict['mcp_server_urls'] = None
+            _dict["mcp_server_urls"] = None
 
         # set to None if agent_strategy (nullable) is None
         # and model_fields_set contains the field
         if self.agent_strategy is None and "agent_strategy" in self.model_fields_set:
-            _dict['agent_strategy'] = None
+            _dict["agent_strategy"] = None
 
         # set to None if stream (nullable) is None
         # and model_fields_set contains the field
         if self.stream is None and "stream" in self.model_fields_set:
-            _dict['stream'] = None
+            _dict["stream"] = None
 
         # set to None if active (nullable) is None
         # and model_fields_set contains the field
         if self.active is None and "active" in self.model_fields_set:
-            _dict['active'] = None
+            _dict["active"] = None
 
         return _dict
 
@@ -138,18 +149,18 @@ class AgentUpdatePublic(BaseModel):
         if not isinstance(obj, dict):
             return cls.model_validate(obj)
 
-        _obj = cls.model_validate({
-            "name": obj.get("name"),
-            "description": obj.get("description"),
-            "model": obj.get("model"),
-            "custom_prompt": obj.get("custom_prompt"),
-            "allowed_tools": obj.get("allowed_tools"),
-            "use_mcp": obj.get("use_mcp"),
-            "mcp_server_urls": obj.get("mcp_server_urls"),
-            "agent_strategy": obj.get("agent_strategy"),
-            "stream": obj.get("stream"),
-            "active": obj.get("active")
-        })
+        _obj = cls.model_validate(
+            {
+                "name": obj.get("name"),
+                "description": obj.get("description"),
+                "model": obj.get("model"),
+                "custom_prompt": obj.get("custom_prompt"),
+                "allowed_tools": obj.get("allowed_tools"),
+                "use_mcp": obj.get("use_mcp"),
+                "mcp_server_urls": obj.get("mcp_server_urls"),
+                "agent_strategy": obj.get("agent_strategy"),
+                "stream": obj.get("stream"),
+                "active": obj.get("active"),
+            }
+        )
         return _obj
-
-

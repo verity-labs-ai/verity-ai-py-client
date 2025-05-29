@@ -22,10 +22,12 @@ from typing import Any, ClassVar, Dict, List
 from typing import Optional, Set
 from typing_extensions import Self
 
+
 class UploadFileResponse(BaseModel):
     """
     UploadFileResponse
-    """ # noqa: E501
+    """  # noqa: E501
+
     message: StrictStr
     s3_path: StrictStr
     __properties: ClassVar[List[str]] = ["message", "s3_path"]
@@ -35,7 +37,6 @@ class UploadFileResponse(BaseModel):
         validate_assignment=True,
         protected_namespaces=(),
     )
-
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
@@ -61,8 +62,7 @@ class UploadFileResponse(BaseModel):
           were set at model initialization. Other fields with value `None`
           are ignored.
         """
-        excluded_fields: Set[str] = set([
-        ])
+        excluded_fields: Set[str] = set([])
 
         _dict = self.model_dump(
             by_alias=True,
@@ -80,10 +80,7 @@ class UploadFileResponse(BaseModel):
         if not isinstance(obj, dict):
             return cls.model_validate(obj)
 
-        _obj = cls.model_validate({
-            "message": obj.get("message"),
-            "s3_path": obj.get("s3_path")
-        })
+        _obj = cls.model_validate(
+            {"message": obj.get("message"), "s3_path": obj.get("s3_path")}
+        )
         return _obj
-
-

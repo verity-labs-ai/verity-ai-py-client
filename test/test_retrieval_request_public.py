@@ -16,6 +16,7 @@ import unittest
 
 from verity_ai_pyc.models.retrieval_request_public import RetrievalRequestPublic
 
+
 class TestRetrievalRequestPublic(unittest.TestCase):
     """RetrievalRequestPublic unit test stubs"""
 
@@ -27,9 +28,9 @@ class TestRetrievalRequestPublic(unittest.TestCase):
 
     def make_instance(self, include_optional) -> RetrievalRequestPublic:
         """Test RetrievalRequestPublic
-            include_optional is a boolean, when False only required
-            params are included, when True both required and
-            optional params are included """
+        include_optional is a boolean, when False only required
+        params are included, when True both required and
+        optional params are included"""
         # uncomment below to create an instance of `RetrievalRequestPublic`
         """
         model = RetrievalRequestPublic()
@@ -50,5 +51,6 @@ class TestRetrievalRequestPublic(unittest.TestCase):
         # inst_req_only = self.make_instance(include_optional=False)
         # inst_req_and_optional = self.make_instance(include_optional=True)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     unittest.main()

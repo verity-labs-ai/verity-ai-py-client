@@ -22,11 +22,15 @@ from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
 
+
 class ValidateDocsRequest(BaseModel):
     """
     ValidateDocsRequest
-    """ # noqa: E501
-    document_ids: List[StrictStr] = Field(description="List of document IDs to validate ingestion")
+    """  # noqa: E501
+
+    document_ids: List[StrictStr] = Field(
+        description="List of document IDs to validate ingestion"
+    )
     knowledge_base: Optional[StrictStr] = None
     __properties: ClassVar[List[str]] = ["document_ids", "knowledge_base"]
 
@@ -35,7 +39,6 @@ class ValidateDocsRequest(BaseModel):
         validate_assignment=True,
         protected_namespaces=(),
     )
-
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
@@ -61,8 +64,7 @@ class ValidateDocsRequest(BaseModel):
           were set at model initialization. Other fields with value `None`
           are ignored.
         """
-        excluded_fields: Set[str] = set([
-        ])
+        excluded_fields: Set[str] = set([])
 
         _dict = self.model_dump(
             by_alias=True,
@@ -72,7 +74,7 @@ class ValidateDocsRequest(BaseModel):
         # set to None if knowledge_base (nullable) is None
         # and model_fields_set contains the field
         if self.knowledge_base is None and "knowledge_base" in self.model_fields_set:
-            _dict['knowledge_base'] = None
+            _dict["knowledge_base"] = None
 
         return _dict
 
@@ -85,10 +87,10 @@ class ValidateDocsRequest(BaseModel):
         if not isinstance(obj, dict):
             return cls.model_validate(obj)
 
-        _obj = cls.model_validate({
-            "document_ids": obj.get("document_ids"),
-            "knowledge_base": obj.get("knowledge_base")
-        })
+        _obj = cls.model_validate(
+            {
+                "document_ids": obj.get("document_ids"),
+                "knowledge_base": obj.get("knowledge_base"),
+            }
+        )
         return _obj
-
-

@@ -22,28 +22,56 @@ from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
 
+
 class AgentCreatePublic(BaseModel):
     """
     Public model for creating a new agent
-    """ # noqa: E501
+    """  # noqa: E501
+
     name: StrictStr = Field(description="Name of the agent")
     description: Optional[StrictStr] = None
-    model: Optional[StrictStr] = Field(default='anthropic_claude_3_5_sonnet_v1', description="LLM model identifier (e.g., 'anthropic_claude_3_5_sonnet_v1')")
+    model: Optional[StrictStr] = Field(
+        default="anthropic_claude_3_5_sonnet_v1",
+        description="LLM model identifier (e.g., 'anthropic_claude_3_5_sonnet_v1')",
+    )
     custom_prompt: Optional[StrictStr] = None
-    allowed_tools: Optional[List[Optional[StrictStr]]] = Field(default=None, description="List of tool names the agent is allowed to use")
-    use_mcp: Optional[StrictBool] = Field(default=False, description="Whether to enable MCP (Model Context Protocol) integration")
-    mcp_server_urls: Optional[List[Optional[StrictStr]]] = Field(default=None, description="List of MCP server URLs")
-    agent_strategy: Optional[StrictStr] = Field(default='react', description="Reasoning strategy ('react', 'cot', etc.)")
-    stream: Optional[StrictBool] = Field(default=False, description="Whether to enable streaming responses by default")
-    active: Optional[StrictBool] = Field(default=True, description="Whether the agent is active and available for use")
-    __properties: ClassVar[List[str]] = ["name", "description", "model", "custom_prompt", "allowed_tools", "use_mcp", "mcp_server_urls", "agent_strategy", "stream", "active"]
+    allowed_tools: Optional[List[Optional[StrictStr]]] = Field(
+        default=None, description="List of tool names the agent is allowed to use"
+    )
+    use_mcp: Optional[StrictBool] = Field(
+        default=False,
+        description="Whether to enable MCP (Model Context Protocol) integration",
+    )
+    mcp_server_urls: Optional[List[Optional[StrictStr]]] = Field(
+        default=None, description="List of MCP server URLs"
+    )
+    agent_strategy: Optional[StrictStr] = Field(
+        default="react", description="Reasoning strategy ('react', 'cot', etc.)"
+    )
+    stream: Optional[StrictBool] = Field(
+        default=False, description="Whether to enable streaming responses by default"
+    )
+    active: Optional[StrictBool] = Field(
+        default=True, description="Whether the agent is active and available for use"
+    )
+    __properties: ClassVar[List[str]] = [
+        "name",
+        "description",
+        "model",
+        "custom_prompt",
+        "allowed_tools",
+        "use_mcp",
+        "mcp_server_urls",
+        "agent_strategy",
+        "stream",
+        "active",
+    ]
 
     model_config = ConfigDict(
         populate_by_name=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
-
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
@@ -69,8 +97,7 @@ class AgentCreatePublic(BaseModel):
           were set at model initialization. Other fields with value `None`
           are ignored.
         """
-        excluded_fields: Set[str] = set([
-        ])
+        excluded_fields: Set[str] = set([])
 
         _dict = self.model_dump(
             by_alias=True,
@@ -80,12 +107,12 @@ class AgentCreatePublic(BaseModel):
         # set to None if description (nullable) is None
         # and model_fields_set contains the field
         if self.description is None and "description" in self.model_fields_set:
-            _dict['description'] = None
+            _dict["description"] = None
 
         # set to None if custom_prompt (nullable) is None
         # and model_fields_set contains the field
         if self.custom_prompt is None and "custom_prompt" in self.model_fields_set:
-            _dict['custom_prompt'] = None
+            _dict["custom_prompt"] = None
 
         return _dict
 
@@ -98,18 +125,24 @@ class AgentCreatePublic(BaseModel):
         if not isinstance(obj, dict):
             return cls.model_validate(obj)
 
-        _obj = cls.model_validate({
-            "name": obj.get("name"),
-            "description": obj.get("description"),
-            "model": obj.get("model") if obj.get("model") is not None else 'anthropic_claude_3_5_sonnet_v1',
-            "custom_prompt": obj.get("custom_prompt"),
-            "allowed_tools": obj.get("allowed_tools"),
-            "use_mcp": obj.get("use_mcp") if obj.get("use_mcp") is not None else False,
-            "mcp_server_urls": obj.get("mcp_server_urls"),
-            "agent_strategy": obj.get("agent_strategy") if obj.get("agent_strategy") is not None else 'react',
-            "stream": obj.get("stream") if obj.get("stream") is not None else False,
-            "active": obj.get("active") if obj.get("active") is not None else True
-        })
+        _obj = cls.model_validate(
+            {
+                "name": obj.get("name"),
+                "description": obj.get("description"),
+                "model": obj.get("model")
+                if obj.get("model") is not None
+                else "anthropic_claude_3_5_sonnet_v1",
+                "custom_prompt": obj.get("custom_prompt"),
+                "allowed_tools": obj.get("allowed_tools"),
+                "use_mcp": obj.get("use_mcp")
+                if obj.get("use_mcp") is not None
+                else False,
+                "mcp_server_urls": obj.get("mcp_server_urls"),
+                "agent_strategy": obj.get("agent_strategy")
+                if obj.get("agent_strategy") is not None
+                else "react",
+                "stream": obj.get("stream") if obj.get("stream") is not None else False,
+                "active": obj.get("active") if obj.get("active") is not None else True,
+            }
+        )
         return _obj
-
-
