@@ -13,16 +13,16 @@
 
 
 from __future__ import annotations
+
+import json
 import pprint
 import re  # noqa: F401
-import json
+from typing import Any, ClassVar, Dict, List, Optional, Set
 
 from pydantic import BaseModel, ConfigDict, StrictStr
-from typing import Any, ClassVar, Dict, List
+from typing_extensions import Self
 from verity_ai_pyc.models.file_info import FileInfo
 from verity_ai_pyc.models.list_files_pagination import ListFilesPagination
-from typing import Optional, Set
-from typing_extensions import Self
 
 
 class ListFilesResponse(BaseModel):

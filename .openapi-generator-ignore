@@ -21,3 +21,50 @@
 #docs/*.md
 # Then explicitly reverse the ignore rule for a single file:
 #!docs/README.md
+
+# =============================================================================
+# PRESERVE GIT REPOSITORY AND CUSTOM FILES
+# =============================================================================
+
+# Preserve Git repository
+.git/
+.git/**
+.gitignore
+
+# Preserve custom documentation and examples
+README.md
+CHANGELOG.md
+LICENSE
+examples/
+examples/**
+
+# Preserve custom configuration files
+.env
+.env.*
+config.yaml
+config.yml
+pyproject.toml
+
+# Preserve CI/CD configurations if customized
+.github/
+.gitlab-ci.yml
+.travis.yml
+
+# Preserve custom scripts
+scripts/
+scripts/**
+
+# Preserve any custom tests
+test_custom.py
+tests/custom/
+tests/custom/**
+
+# Preserve package management files if customized
+setup.cfg
+requirements-dev.txt
+Makefile
+
+# Preserve IDE configurations
+.vscode/
+.idea/
+*.code-workspace

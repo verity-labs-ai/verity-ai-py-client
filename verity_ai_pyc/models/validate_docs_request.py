@@ -13,14 +13,15 @@
 
 
 from __future__ import annotations
+
+import json
 import pprint
 import re  # noqa: F401
-import json
+from typing import Any, ClassVar, Dict, List, Optional, Set
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
-from typing import Optional, Set
 from typing_extensions import Self
+from verity_ai_pyc.models.knowledge_base2 import KnowledgeBase2
 
 
 class ValidateDocsRequest(BaseModel):
@@ -31,7 +32,7 @@ class ValidateDocsRequest(BaseModel):
     document_ids: List[StrictStr] = Field(
         description="List of document IDs to validate ingestion"
     )
-    knowledge_base: Optional[StrictStr] = None
+    knowledge_base: Optional[KnowledgeBase2] = None
     __properties: ClassVar[List[str]] = ["document_ids", "knowledge_base"]
 
     model_config = ConfigDict(
@@ -71,6 +72,9 @@ class ValidateDocsRequest(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of knowledge_base
+        if self.knowledge_base:
+            _dict["knowledge_base"] = self.knowledge_base.to_dict()
         # set to None if knowledge_base (nullable) is None
         # and model_fields_set contains the field
         if self.knowledge_base is None and "knowledge_base" in self.model_fields_set:
@@ -90,7 +94,9 @@ class ValidateDocsRequest(BaseModel):
         _obj = cls.model_validate(
             {
                 "document_ids": obj.get("document_ids"),
-                "knowledge_base": obj.get("knowledge_base"),
+                "knowledge_base": KnowledgeBase2.from_dict(obj["knowledge_base"])
+                if obj.get("knowledge_base") is not None
+                else None,
             }
         )
         return _obj

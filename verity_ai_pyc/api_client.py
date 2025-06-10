@@ -13,32 +13,27 @@
 
 
 import datetime
-from dateutil.parser import parse
-from enum import Enum
 import decimal
 import json
 import mimetypes
 import os
 import re
 import tempfile
-
+from enum import Enum
+from typing import Dict, List, Optional, Tuple, Union
 from urllib.parse import quote
-from typing import Tuple, Optional, List, Dict, Union
-from pydantic import SecretStr
 
-from verity_ai_pyc.configuration import Configuration
-from verity_ai_pyc.api_response import ApiResponse, T as ApiResponseT
 import verity_ai_pyc.models
+from dateutil.parser import parse
+from pydantic import SecretStr
 from verity_ai_pyc import rest
-from verity_ai_pyc.exceptions import (
-    ApiValueError,
-    ApiException,
-    BadRequestException,
-    UnauthorizedException,
-    ForbiddenException,
-    NotFoundException,
-    ServiceException,
-)
+from verity_ai_pyc.api_response import ApiResponse
+from verity_ai_pyc.api_response import T as ApiResponseT
+from verity_ai_pyc.configuration import Configuration
+from verity_ai_pyc.exceptions import (ApiException, ApiValueError,
+                                      BadRequestException, ForbiddenException,
+                                      NotFoundException, ServiceException,
+                                      UnauthorizedException)
 
 RequestSerialized = Tuple[str, str, Dict[str, str], Optional[str], List[str]]
 
@@ -427,72 +422,23 @@ class ApiClient:
             return None
 
         if isinstance(klass, str):
-            # PATCH: Handle problematic type hints like Optional[str], List[str], etc.
-            if klass.startswith("Optional[") or "[" in klass:
-                # For Optional[str] or similar, just return the data as-is with basic type conversion
-                if "str" in klass:
-                    return str(data) if data is not None else None
-                elif "int" in klass:
-                    return int(data) if data is not None else None
-                elif "bool" in klass:
-                    return bool(data) if data is not None else None
-                elif "list" in klass.lower():
-                    return list(data) if data is not None else None
-                elif "dict" in klass.lower():
-                    return dict(data) if data is not None else None
-                else:
-                    return data
-
             if klass.startswith("List["):
                 m = re.match(r"List\[(.*)]", klass)
                 assert m is not None, "Malformed List type definition"
                 sub_kls = m.group(1)
-                # PATCH: Handle Optional types in List elements
-                if sub_kls.startswith("Optional[") or "[" in sub_kls:
-                    if "str" in sub_kls:
-                        return [
-                            str(sub_data) if sub_data is not None else None
-                            for sub_data in data
-                        ]
-                    elif "int" in sub_kls:
-                        return [
-                            int(sub_data) if sub_data is not None else None
-                            for sub_data in data
-                        ]
-                    else:
-                        return [sub_data for sub_data in data]
                 return [self.__deserialize(sub_data, sub_kls) for sub_data in data]
 
             if klass.startswith("Dict["):
                 m = re.match(r"Dict\[([^,]*), (.*)]", klass)
                 assert m is not None, "Malformed Dict type definition"
                 sub_kls = m.group(2)
-                # PATCH: Handle Optional types in Dict values
-                if sub_kls.startswith("Optional[") or "[" in sub_kls:
-                    if "str" in sub_kls:
-                        return {
-                            k: str(v) if v is not None else None
-                            for k, v in data.items()
-                        }
-                    elif "int" in sub_kls:
-                        return {
-                            k: int(v) if v is not None else None
-                            for k, v in data.items()
-                        }
-                    else:
-                        return {k: v for k, v in data.items()}
                 return {k: self.__deserialize(v, sub_kls) for k, v in data.items()}
 
             # convert str to class
             if klass in self.NATIVE_TYPES_MAPPING:
                 klass = self.NATIVE_TYPES_MAPPING[klass]
             else:
-                # PATCH: Additional safety check before getattr
-                try:
-                    klass = getattr(verity_ai_pyc.models, klass)
-                except AttributeError:
-                    # If the class doesn't exist, return the data as-is
-                    return data
+                klass = getattr(verity_ai_pyc.models, klass)
 
         if klass in self.PRIMITIVE_TYPES:
             return self.__deserialize_primitive(data, klass)

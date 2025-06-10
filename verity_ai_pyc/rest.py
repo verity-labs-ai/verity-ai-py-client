@@ -18,7 +18,6 @@ import re
 import ssl
 
 import urllib3
-
 from verity_ai_pyc.exceptions import ApiException, ApiValueError
 
 SUPPORTED_SOCKS_PROXIES = {"socks5", "socks5h", "socks4", "socks4a"}

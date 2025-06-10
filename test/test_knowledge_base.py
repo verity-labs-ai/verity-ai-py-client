@@ -16,7 +16,6 @@ import unittest
 
 from verity_ai_pyc.models.knowledge_base import KnowledgeBase
 
-
 class TestKnowledgeBase(unittest.TestCase):
     """KnowledgeBase unit test stubs"""
 
@@ -28,21 +27,17 @@ class TestKnowledgeBase(unittest.TestCase):
 
     def make_instance(self, include_optional) -> KnowledgeBase:
         """Test KnowledgeBase
-        include_optional is a boolean, when False only required
-        params are included, when True both required and
-        optional params are included"""
+            include_optional is a boolean, when False only required
+            params are included, when True both required and
+            optional params are included """
         # uncomment below to create an instance of `KnowledgeBase`
         """
         model = KnowledgeBase()
         if include_optional:
             return KnowledgeBase(
-                id = '',
-                name = ''
             )
         else:
             return KnowledgeBase(
-                id = '',
-                name = '',
         )
         """
 
@@ -51,6 +46,5 @@ class TestKnowledgeBase(unittest.TestCase):
         # inst_req_only = self.make_instance(include_optional=False)
         # inst_req_and_optional = self.make_instance(include_optional=True)
 
-
-if __name__ == "__main__":
+if __name__ == '__main__':
     unittest.main()

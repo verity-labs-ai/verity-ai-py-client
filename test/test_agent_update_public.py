@@ -16,7 +16,6 @@ import unittest
 
 from verity_ai_pyc.models.agent_update_public import AgentUpdatePublic
 
-
 class TestAgentUpdatePublic(unittest.TestCase):
     """AgentUpdatePublic unit test stubs"""
 
@@ -28,9 +27,9 @@ class TestAgentUpdatePublic(unittest.TestCase):
 
     def make_instance(self, include_optional) -> AgentUpdatePublic:
         """Test AgentUpdatePublic
-        include_optional is a boolean, when False only required
-        params are included, when True both required and
-        optional params are included"""
+            include_optional is a boolean, when False only required
+            params are included, when True both required and
+            optional params are included """
         # uncomment below to create an instance of `AgentUpdatePublic`
         """
         model = AgentUpdatePublic()
@@ -39,6 +38,7 @@ class TestAgentUpdatePublic(unittest.TestCase):
                 name = '',
                 description = '',
                 model = '',
+                system_prompt = '',
                 custom_prompt = '',
                 allowed_tools = [
                     ''
@@ -49,7 +49,13 @@ class TestAgentUpdatePublic(unittest.TestCase):
                     ],
                 agent_strategy = '',
                 stream = True,
-                active = True
+                active = True,
+                agent_origin = '',
+                parent_agent_id = '',
+                knowledge_base = '',
+                database_name = '',
+                table_name = '',
+                max_trials = 1.0
             )
         else:
             return AgentUpdatePublic(
@@ -61,6 +67,5 @@ class TestAgentUpdatePublic(unittest.TestCase):
         # inst_req_only = self.make_instance(include_optional=False)
         # inst_req_and_optional = self.make_instance(include_optional=True)
 
-
-if __name__ == "__main__":
+if __name__ == '__main__':
     unittest.main()

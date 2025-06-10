@@ -6,7 +6,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **document_ids** | **List[str]** | List of document IDs to validate ingestion | 
-**knowledge_base** | **str** |  | [optional] 
+**knowledge_base** | [**KnowledgeBase2**](KnowledgeBase2.md) |  | [optional] 
 
 ## Example
 

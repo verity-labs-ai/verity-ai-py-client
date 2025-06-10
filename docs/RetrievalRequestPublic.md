@@ -6,8 +6,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **query** | **str** | The user query to retrieve documents for. | 
-**top_k** | **int** |  | [optional] 
-**knowledge_base** | **str** |  | [optional] 
+**top_k** | **int** | The number of top documents to retrieve (5-10). | [optional] [default to 5]
+**knowledge_base** | [**KnowledgeBase1**](KnowledgeBase1.md) |  | [optional] 
 
 ## Example
 

@@ -13,15 +13,15 @@
 
 
 from __future__ import annotations
+
+import json
 import pprint
 import re  # noqa: F401
-import json
-
 from datetime import datetime
-from pydantic import BaseModel, ConfigDict, StrictBool, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
-from typing import Optional, Set
-from typing_extensions import Self
+from typing import Any, ClassVar, Dict, List, Optional, Set
+
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr
+from typing_extensions import Annotated, Self
 
 
 class AgentResponse(BaseModel):
@@ -31,17 +31,38 @@ class AgentResponse(BaseModel):
 
     agent_id: StrictStr
     name: StrictStr
-    description: Optional[StrictStr]
+    description: StrictStr
     model: StrictStr
-    custom_prompt: Optional[StrictStr]
-    allowed_tools: List[Optional[StrictStr]]
+    system_prompt: StrictStr
+    custom_prompt: StrictStr
+    allowed_tools: List[StrictStr]
     use_mcp: StrictBool
-    mcp_server_urls: List[Optional[StrictStr]]
+    mcp_server_urls: List[StrictStr]
     agent_strategy: StrictStr
     stream: StrictBool
     active: StrictBool
     version: Optional[StrictStr] = None
     organisation: StrictStr
+    agent_origin: StrictStr = Field(description="Origin type: 'preset' or 'custom'")
+    parent_agent_id: Optional[StrictStr] = Field(
+        default=None,
+        description="ID of the parent preset agent if this is a custom agent derived from a preset",
+    )
+    knowledge_base: Optional[StrictStr] = Field(
+        default=None,
+        description="Knowledge base the agent uses for unstructured data retrieval",
+    )
+    database_name: Optional[StrictStr] = Field(
+        default=None,
+        description="Database name the agent uses for structured data queries",
+    )
+    table_name: Optional[StrictStr] = Field(
+        default=None,
+        description="Table name the agent uses for structured data queries",
+    )
+    max_trials: Optional[Annotated[int, Field(le=10, strict=True, ge=1)]] = Field(
+        default=None, description="Maximum number of tool execution cycles"
+    )
     created_at: datetime
     updated_at: datetime
     __properties: ClassVar[List[str]] = [
@@ -49,6 +70,7 @@ class AgentResponse(BaseModel):
         "name",
         "description",
         "model",
+        "system_prompt",
         "custom_prompt",
         "allowed_tools",
         "use_mcp",
@@ -58,6 +80,12 @@ class AgentResponse(BaseModel):
         "active",
         "version",
         "organisation",
+        "agent_origin",
+        "parent_agent_id",
+        "knowledge_base",
+        "database_name",
+        "table_name",
+        "max_trials",
         "created_at",
         "updated_at",
     ]
@@ -99,21 +127,6 @@ class AgentResponse(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # set to None if description (nullable) is None
-        # and model_fields_set contains the field
-        if self.description is None and "description" in self.model_fields_set:
-            _dict["description"] = None
-
-        # set to None if custom_prompt (nullable) is None
-        # and model_fields_set contains the field
-        if self.custom_prompt is None and "custom_prompt" in self.model_fields_set:
-            _dict["custom_prompt"] = None
-
-        # set to None if version (nullable) is None
-        # and model_fields_set contains the field
-        if self.version is None and "version" in self.model_fields_set:
-            _dict["version"] = None
-
         return _dict
 
     @classmethod
@@ -131,6 +144,7 @@ class AgentResponse(BaseModel):
                 "name": obj.get("name"),
                 "description": obj.get("description"),
                 "model": obj.get("model"),
+                "system_prompt": obj.get("system_prompt"),
                 "custom_prompt": obj.get("custom_prompt"),
                 "allowed_tools": obj.get("allowed_tools"),
                 "use_mcp": obj.get("use_mcp"),
@@ -140,6 +154,12 @@ class AgentResponse(BaseModel):
                 "active": obj.get("active"),
                 "version": obj.get("version"),
                 "organisation": obj.get("organisation"),
+                "agent_origin": obj.get("agent_origin"),
+                "parent_agent_id": obj.get("parent_agent_id"),
+                "knowledge_base": obj.get("knowledge_base"),
+                "database_name": obj.get("database_name"),
+                "table_name": obj.get("table_name"),
+                "max_trials": obj.get("max_trials"),
                 "created_at": obj.get("created_at"),
                 "updated_at": obj.get("updated_at"),
             }

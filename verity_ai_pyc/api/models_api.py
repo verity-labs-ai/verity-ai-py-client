@@ -12,13 +12,10 @@
 """  # noqa: E501
 
 import warnings
-from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
+
+from pydantic import Field, StrictFloat, StrictInt, StrictStr, validate_call
 from typing_extensions import Annotated
-
-from pydantic import StrictStr
-from typing import List, Optional
-
 from verity_ai_pyc.api_client import ApiClient, RequestSerialized
 from verity_ai_pyc.api_response import ApiResponse
 from verity_ai_pyc.rest import RESTResponseType
@@ -50,7 +47,7 @@ class ModelsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> List[Optional[str]]:
+    ) -> List[str]:
         """List Models
 
         Return the available LLM model names based on the user's tier.
@@ -85,7 +82,7 @@ class ModelsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            "200": "List[Optional[str]]",
+            "200": "List[str]",
         }
         response_data = self.api_client.call_api(
             *_param, _request_timeout=_request_timeout
@@ -110,7 +107,7 @@ class ModelsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[List[Optional[str]]]:
+    ) -> ApiResponse[List[str]]:
         """List Models
 
         Return the available LLM model names based on the user's tier.
@@ -145,7 +142,7 @@ class ModelsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            "200": "List[Optional[str]]",
+            "200": "List[str]",
         }
         response_data = self.api_client.call_api(
             *_param, _request_timeout=_request_timeout
@@ -205,7 +202,7 @@ class ModelsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            "200": "List[Optional[str]]",
+            "200": "List[str]",
         }
         response_data = self.api_client.call_api(
             *_param, _request_timeout=_request_timeout

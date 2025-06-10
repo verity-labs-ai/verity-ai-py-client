@@ -9,13 +9,20 @@ Name | Type | Description | Notes
 **name** | **str** |  | [optional] 
 **description** | **str** |  | [optional] 
 **model** | **str** |  | [optional] 
+**system_prompt** | **str** |  | [optional] 
 **custom_prompt** | **str** |  | [optional] 
-**allowed_tools** | **List[Optional[str]]** |  | [optional] 
+**allowed_tools** | **List[str]** |  | [optional] 
 **use_mcp** | **bool** |  | [optional] 
 **mcp_server_urls** | **List[str]** |  | [optional] 
 **agent_strategy** | **str** |  | [optional] 
 **stream** | **bool** |  | [optional] 
 **active** | **bool** |  | [optional] 
+**agent_origin** | **str** | Origin type: &#39;preset&#39; or &#39;custom&#39; | [optional] 
+**parent_agent_id** | **str** | ID of the parent preset agent if this is a custom agent derived from a preset | [optional] 
+**knowledge_base** | **str** | Knowledge base the agent should use for unstructured data retrieval | [optional] 
+**database_name** | **str** | Database name the agent should use for structured data queries | [optional] 
+**table_name** | **str** | Table name the agent should use for structured data queries | [optional] 
+**max_trials** | **int** | Maximum number of tool execution cycles | [optional] 
 
 ## Example
 

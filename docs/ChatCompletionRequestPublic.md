@@ -6,17 +6,19 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **data_type** | **str** | Unstructured or structured data type | [optional] 
-**agent_flag** | **bool** |  | [optional] 
-**agent_name** | **str** |  | [optional] 
-**agent_strategy** | **str** |  | [optional] 
-**agent_history_enabled** | **bool** |  | [optional] 
+**agent_flag** | **bool** | Flag to indicate if the request is for an agent | [optional] [default to False]
+**agent_id** | **str** | ID of the agent to use for processing | [optional] 
+**agent_strategy** | **str** | Strategy to use for agent processing | [optional] 
+**agent_history_enabled** | **bool** | Flag to indicate if the agent history is enabled | [optional] [default to False]
 **model** | **str** | Model ID | [optional] 
-**knowledge_base** | **str** |  | [optional] 
+**knowledge_base** | [**KnowledgeBase**](KnowledgeBase.md) |  | [optional] 
 **messages** | [**List[Message]**](Message.md) | List of conversation messages | 
-**database_name** | **str** |  | [optional] 
-**table_name** | **str** |  | [optional] 
-**stream** | **bool** |  | [optional] 
-**max_trials** | **int** |  | [optional] 
+**database_name** | **str** | Name of the database to use for structured processing for the &#39;structured&#39; strategy, default is &#39;all&#39; | [optional] 
+**table_name** | **str** | Name of the table to use for structured processing for the &#39;structured&#39; strategy, not required to be passed in | [optional] 
+**stream** | **bool** | Whether to stream responses | [optional] [default to False]
+**max_trials** | **int** | Maximum number of trials for the agent | [optional] [default to 10]
+**conversation_id** | **str** | Conversation ID to enable tracking of the conversation and recall and analytics | [optional] 
+**request_id** | **str** | Request ID to enable tracking of the request, unique per request | [optional] 
 
 ## Example
 

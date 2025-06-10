@@ -8,7 +8,7 @@ Method | HTTP request | Description
 
 
 # **list_models_rag_generation_models_get**
-> List[Optional[str]] list_models_rag_generation_models_get()
+> List[str] list_models_rag_generation_models_get()
 
 List Models
 
@@ -62,7 +62,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-**List[Optional[str]]**
+**List[str]**
 
 ### Authorization
 

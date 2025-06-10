@@ -13,13 +13,13 @@
 
 
 from __future__ import annotations
+
+import json
 import pprint
 import re  # noqa: F401
-import json
+from typing import Any, ClassVar, Dict, List, Optional, Set
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
-from typing import Optional, Set
 from typing_extensions import Self
 
 
@@ -32,7 +32,10 @@ class ChatCompletionMessage(BaseModel):
         description="Role of the message (always 'assistant' in response)"
     )
     content: StrictStr = Field(description="Generated message content")
-    metadata: Optional[Dict[str, Any]] = None
+    metadata: Optional[Dict[str, Any]] = Field(
+        default=None,
+        description="Optional metadata including stage information for agent responses",
+    )
     __properties: ClassVar[List[str]] = ["role", "content", "metadata"]
 
     model_config = ConfigDict(
@@ -72,11 +75,6 @@ class ChatCompletionMessage(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # set to None if metadata (nullable) is None
-        # and model_fields_set contains the field
-        if self.metadata is None and "metadata" in self.model_fields_set:
-            _dict["metadata"] = None
-
         return _dict
 
     @classmethod

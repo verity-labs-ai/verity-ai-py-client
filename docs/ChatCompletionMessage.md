@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **role** | **str** | Role of the message (always &#39;assistant&#39; in response) | 
 **content** | **str** | Generated message content | 
-**metadata** | **Dict[str, object]** |  | [optional] 
+**metadata** | **Dict[str, object]** | Optional metadata including stage information for agent responses | [optional] 
 
 ## Example
 

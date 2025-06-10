@@ -13,14 +13,14 @@
 
 
 from __future__ import annotations
+
+import json
 import pprint
 import re  # noqa: F401
-import json
+from typing import Any, ClassVar, Dict, List, Optional, Set
 
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
-from typing import Optional, Set
-from typing_extensions import Self
+from typing_extensions import Annotated, Self
 
 
 class AgentCreatePublic(BaseModel):
@@ -29,20 +29,41 @@ class AgentCreatePublic(BaseModel):
     """  # noqa: E501
 
     name: StrictStr = Field(description="Name of the agent")
-    description: Optional[StrictStr] = None
+    description: Optional[StrictStr] = Field(
+        default=None, description="Description of the agent's purpose and capabilities"
+    )
     model: Optional[StrictStr] = Field(
         default="anthropic_claude_3_5_sonnet_v1",
         description="LLM model identifier (e.g., 'anthropic_claude_3_5_sonnet_v1')",
     )
-    custom_prompt: Optional[StrictStr] = None
-    allowed_tools: Optional[List[Optional[StrictStr]]] = Field(
+    system_prompt: Optional[StrictStr] = Field(
+        default=None,
+        description="System prompt that defines the agent's behavior and context",
+    )
+    custom_prompt: Optional[StrictStr] = Field(
+        default=None,
+        description="Custom prompt that can be used to add additional instructions to the agent",
+    )
+    knowledge_base: Optional[StrictStr] = Field(
+        default=None,
+        description="Knowledge base the agent should use for unstructured data retrieval",
+    )
+    database_name: Optional[StrictStr] = Field(
+        default=None,
+        description="Database name the agent should use for structured data queries",
+    )
+    table_name: Optional[StrictStr] = Field(
+        default=None,
+        description="Table name the agent should use for structured data queries",
+    )
+    allowed_tools: Optional[List[StrictStr]] = Field(
         default=None, description="List of tool names the agent is allowed to use"
     )
     use_mcp: Optional[StrictBool] = Field(
         default=False,
         description="Whether to enable MCP (Model Context Protocol) integration",
     )
-    mcp_server_urls: Optional[List[Optional[StrictStr]]] = Field(
+    mcp_server_urls: Optional[List[StrictStr]] = Field(
         default=None, description="List of MCP server URLs"
     )
     agent_strategy: Optional[StrictStr] = Field(
@@ -54,17 +75,34 @@ class AgentCreatePublic(BaseModel):
     active: Optional[StrictBool] = Field(
         default=True, description="Whether the agent is active and available for use"
     )
+    agent_origin: Optional[StrictStr] = Field(
+        default="custom", description="Origin type: 'preset' or 'custom'"
+    )
+    parent_agent_id: Optional[StrictStr] = Field(
+        default=None,
+        description="ID of the parent preset agent if this is a custom agent derived from a preset",
+    )
+    max_trials: Optional[Annotated[int, Field(le=10, strict=True, ge=1)]] = Field(
+        default=None, description="Maximum number of tool execution cycles"
+    )
     __properties: ClassVar[List[str]] = [
         "name",
         "description",
         "model",
+        "system_prompt",
         "custom_prompt",
+        "knowledge_base",
+        "database_name",
+        "table_name",
         "allowed_tools",
         "use_mcp",
         "mcp_server_urls",
         "agent_strategy",
         "stream",
         "active",
+        "agent_origin",
+        "parent_agent_id",
+        "max_trials",
     ]
 
     model_config = ConfigDict(
@@ -104,16 +142,6 @@ class AgentCreatePublic(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # set to None if description (nullable) is None
-        # and model_fields_set contains the field
-        if self.description is None and "description" in self.model_fields_set:
-            _dict["description"] = None
-
-        # set to None if custom_prompt (nullable) is None
-        # and model_fields_set contains the field
-        if self.custom_prompt is None and "custom_prompt" in self.model_fields_set:
-            _dict["custom_prompt"] = None
-
         return _dict
 
     @classmethod
@@ -132,7 +160,11 @@ class AgentCreatePublic(BaseModel):
                 "model": obj.get("model")
                 if obj.get("model") is not None
                 else "anthropic_claude_3_5_sonnet_v1",
+                "system_prompt": obj.get("system_prompt"),
                 "custom_prompt": obj.get("custom_prompt"),
+                "knowledge_base": obj.get("knowledge_base"),
+                "database_name": obj.get("database_name"),
+                "table_name": obj.get("table_name"),
                 "allowed_tools": obj.get("allowed_tools"),
                 "use_mcp": obj.get("use_mcp")
                 if obj.get("use_mcp") is not None
@@ -143,6 +175,11 @@ class AgentCreatePublic(BaseModel):
                 else "react",
                 "stream": obj.get("stream") if obj.get("stream") is not None else False,
                 "active": obj.get("active") if obj.get("active") is not None else True,
+                "agent_origin": obj.get("agent_origin")
+                if obj.get("agent_origin") is not None
+                else "custom",
+                "parent_agent_id": obj.get("parent_agent_id"),
+                "max_trials": obj.get("max_trials"),
             }
         )
         return _obj

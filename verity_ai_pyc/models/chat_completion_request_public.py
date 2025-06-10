@@ -13,15 +13,17 @@
 
 
 from __future__ import annotations
+
+import json
 import pprint
 import re  # noqa: F401
-import json
+from typing import Any, ClassVar, Dict, List, Optional, Set
 
-from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
-from verity_ai_pyc.models.message import Message
-from typing import Optional, Set
+from pydantic import (BaseModel, ConfigDict, Field, StrictBool, StrictInt,
+                      StrictStr)
 from typing_extensions import Self
+from verity_ai_pyc.models.knowledge_base import KnowledgeBase
+from verity_ai_pyc.models.message import Message
 
 
 class ChatCompletionRequestPublic(BaseModel):
@@ -32,21 +34,47 @@ class ChatCompletionRequestPublic(BaseModel):
     data_type: Optional[StrictStr] = Field(
         default=None, description="Unstructured or structured data type"
     )
-    agent_flag: Optional[StrictBool] = None
-    agent_name: Optional[StrictStr] = None
-    agent_strategy: Optional[StrictStr] = None
-    agent_history_enabled: Optional[StrictBool] = None
+    agent_flag: Optional[StrictBool] = Field(
+        default=False, description="Flag to indicate if the request is for an agent"
+    )
+    agent_id: Optional[StrictStr] = Field(
+        default=None, description="ID of the agent to use for processing"
+    )
+    agent_strategy: Optional[StrictStr] = Field(
+        default=None, description="Strategy to use for agent processing"
+    )
+    agent_history_enabled: Optional[StrictBool] = Field(
+        default=False, description="Flag to indicate if the agent history is enabled"
+    )
     model: Optional[StrictStr] = Field(default=None, description="Model ID")
-    knowledge_base: Optional[StrictStr] = None
+    knowledge_base: Optional[KnowledgeBase] = None
     messages: List[Message] = Field(description="List of conversation messages")
-    database_name: Optional[StrictStr] = None
-    table_name: Optional[StrictStr] = None
-    stream: Optional[StrictBool] = None
-    max_trials: Optional[StrictInt] = None
+    database_name: Optional[StrictStr] = Field(
+        default=None,
+        description="Name of the database to use for structured processing for the 'structured' strategy, default is 'all'",
+    )
+    table_name: Optional[StrictStr] = Field(
+        default=None,
+        description="Name of the table to use for structured processing for the 'structured' strategy, not required to be passed in",
+    )
+    stream: Optional[StrictBool] = Field(
+        default=False, description="Whether to stream responses"
+    )
+    max_trials: Optional[StrictInt] = Field(
+        default=10, description="Maximum number of trials for the agent"
+    )
+    conversation_id: Optional[StrictStr] = Field(
+        default=None,
+        description="Conversation ID to enable tracking of the conversation and recall and analytics",
+    )
+    request_id: Optional[StrictStr] = Field(
+        default=None,
+        description="Request ID to enable tracking of the request, unique per request",
+    )
     __properties: ClassVar[List[str]] = [
         "data_type",
         "agent_flag",
-        "agent_name",
+        "agent_id",
         "agent_strategy",
         "agent_history_enabled",
         "model",
@@ -56,6 +84,8 @@ class ChatCompletionRequestPublic(BaseModel):
         "table_name",
         "stream",
         "max_trials",
+        "conversation_id",
+        "request_id",
     ]
 
     model_config = ConfigDict(
@@ -95,6 +125,9 @@ class ChatCompletionRequestPublic(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of knowledge_base
+        if self.knowledge_base:
+            _dict["knowledge_base"] = self.knowledge_base.to_dict()
         # override the default output from pydantic by calling `to_dict()` of each item in messages (list)
         _items = []
         if self.messages:
@@ -102,53 +135,10 @@ class ChatCompletionRequestPublic(BaseModel):
                 if _item_messages:
                     _items.append(_item_messages.to_dict())
             _dict["messages"] = _items
-        # set to None if agent_flag (nullable) is None
-        # and model_fields_set contains the field
-        if self.agent_flag is None and "agent_flag" in self.model_fields_set:
-            _dict["agent_flag"] = None
-
-        # set to None if agent_name (nullable) is None
-        # and model_fields_set contains the field
-        if self.agent_name is None and "agent_name" in self.model_fields_set:
-            _dict["agent_name"] = None
-
-        # set to None if agent_strategy (nullable) is None
-        # and model_fields_set contains the field
-        if self.agent_strategy is None and "agent_strategy" in self.model_fields_set:
-            _dict["agent_strategy"] = None
-
-        # set to None if agent_history_enabled (nullable) is None
-        # and model_fields_set contains the field
-        if (
-            self.agent_history_enabled is None
-            and "agent_history_enabled" in self.model_fields_set
-        ):
-            _dict["agent_history_enabled"] = None
-
         # set to None if knowledge_base (nullable) is None
         # and model_fields_set contains the field
         if self.knowledge_base is None and "knowledge_base" in self.model_fields_set:
             _dict["knowledge_base"] = None
-
-        # set to None if database_name (nullable) is None
-        # and model_fields_set contains the field
-        if self.database_name is None and "database_name" in self.model_fields_set:
-            _dict["database_name"] = None
-
-        # set to None if table_name (nullable) is None
-        # and model_fields_set contains the field
-        if self.table_name is None and "table_name" in self.model_fields_set:
-            _dict["table_name"] = None
-
-        # set to None if stream (nullable) is None
-        # and model_fields_set contains the field
-        if self.stream is None and "stream" in self.model_fields_set:
-            _dict["stream"] = None
-
-        # set to None if max_trials (nullable) is None
-        # and model_fields_set contains the field
-        if self.max_trials is None and "max_trials" in self.model_fields_set:
-            _dict["max_trials"] = None
 
         return _dict
 
@@ -164,19 +154,29 @@ class ChatCompletionRequestPublic(BaseModel):
         _obj = cls.model_validate(
             {
                 "data_type": obj.get("data_type"),
-                "agent_flag": obj.get("agent_flag"),
-                "agent_name": obj.get("agent_name"),
+                "agent_flag": obj.get("agent_flag")
+                if obj.get("agent_flag") is not None
+                else False,
+                "agent_id": obj.get("agent_id"),
                 "agent_strategy": obj.get("agent_strategy"),
-                "agent_history_enabled": obj.get("agent_history_enabled"),
+                "agent_history_enabled": obj.get("agent_history_enabled")
+                if obj.get("agent_history_enabled") is not None
+                else False,
                 "model": obj.get("model"),
-                "knowledge_base": obj.get("knowledge_base"),
+                "knowledge_base": KnowledgeBase.from_dict(obj["knowledge_base"])
+                if obj.get("knowledge_base") is not None
+                else None,
                 "messages": [Message.from_dict(_item) for _item in obj["messages"]]
                 if obj.get("messages") is not None
                 else None,
                 "database_name": obj.get("database_name"),
                 "table_name": obj.get("table_name"),
-                "stream": obj.get("stream"),
-                "max_trials": obj.get("max_trials"),
+                "stream": obj.get("stream") if obj.get("stream") is not None else False,
+                "max_trials": obj.get("max_trials")
+                if obj.get("max_trials") is not None
+                else 10,
+                "conversation_id": obj.get("conversation_id"),
+                "request_id": obj.get("request_id"),
             }
         )
         return _obj

@@ -13,15 +13,15 @@
 
 
 from __future__ import annotations
+
+import json
 import pprint
 import re  # noqa: F401
-import json
+from typing import Any, ClassVar, Dict, List, Optional, Set
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
-from typing_extensions import Annotated
-from typing import Optional, Set
-from typing_extensions import Self
+from typing_extensions import Annotated, Self
+from verity_ai_pyc.models.knowledge_base1 import KnowledgeBase1
 
 
 class RetrievalRequestPublic(BaseModel):
@@ -30,8 +30,10 @@ class RetrievalRequestPublic(BaseModel):
     """  # noqa: E501
 
     query: StrictStr = Field(description="The user query to retrieve documents for.")
-    top_k: Optional[Annotated[int, Field(le=10, strict=True, ge=5)]] = None
-    knowledge_base: Optional[StrictStr] = None
+    top_k: Optional[Annotated[int, Field(le=10, strict=True, ge=5)]] = Field(
+        default=5, description="The number of top documents to retrieve (5-10)."
+    )
+    knowledge_base: Optional[KnowledgeBase1] = None
     __properties: ClassVar[List[str]] = ["query", "top_k", "knowledge_base"]
 
     model_config = ConfigDict(
@@ -71,11 +73,9 @@ class RetrievalRequestPublic(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # set to None if top_k (nullable) is None
-        # and model_fields_set contains the field
-        if self.top_k is None and "top_k" in self.model_fields_set:
-            _dict["top_k"] = None
-
+        # override the default output from pydantic by calling `to_dict()` of knowledge_base
+        if self.knowledge_base:
+            _dict["knowledge_base"] = self.knowledge_base.to_dict()
         # set to None if knowledge_base (nullable) is None
         # and model_fields_set contains the field
         if self.knowledge_base is None and "knowledge_base" in self.model_fields_set:
@@ -95,8 +95,10 @@ class RetrievalRequestPublic(BaseModel):
         _obj = cls.model_validate(
             {
                 "query": obj.get("query"),
-                "top_k": obj.get("top_k"),
-                "knowledge_base": obj.get("knowledge_base"),
+                "top_k": obj.get("top_k") if obj.get("top_k") is not None else 5,
+                "knowledge_base": KnowledgeBase1.from_dict(obj["knowledge_base"])
+                if obj.get("knowledge_base") is not None
+                else None,
             }
         )
         return _obj

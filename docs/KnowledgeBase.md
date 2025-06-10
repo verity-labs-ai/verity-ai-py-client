@@ -1,12 +1,11 @@
 # KnowledgeBase
 
+Name of the knowledge base to use for unstructured processing, default is 'all'. Can be a string or list of strings.
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **str** |  | 
-**name** | **str** |  | 
 
 ## Example
 
